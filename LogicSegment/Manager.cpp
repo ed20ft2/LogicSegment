@@ -21,8 +21,8 @@ Manager::Manager()
 
 	//set up the main menu button:
 	menu_btns.push_back(new PButtons("4-bit Output Finder")); // sets the title for button 1
-	menu_btns.push_back(new PButtons("Truth Table Calculator")); // sets the title for button 2
-	menu_btns.push_back(new PButtons("1's and 2's Complement")); // sets the title for button 3
+	menu_btns.push_back(new PButtons("Truth Table Simulator")); // sets the title for button 2
+	menu_btns.push_back(new PButtons("1&2's Complement Finder")); // sets the title for button 3
 	menu_btns.push_back(new PButtons("Bin&Hex&Dec Converter")); // sets the title for button 4
 	menu_btns.push_back(new PButtons("Exit"));   // sets the title for button 5
 
@@ -286,8 +286,137 @@ void Manager::Item1() // 4-bit Truth Table Finder
 
 void Manager::Item2()
 {
-	outtextxy(0, 0, "Menu Item 2");
-	cout << "Item 2\n";
+	//printf("Unfortunately, due to compiler issues, this part of the code could not be compiled on Visual studio code");
+	//printf("Please visit the code below to compile the program");
+	//printf("https://replit.com/@ed20ft2/Item-2#main.cpp");
+	// This was before I found a solution for my segment 2
+
+	printf("Welcome to the Truth Table Simulator\n");
+
+	int and_operation = 0;
+	int or_operation = 0;
+	int not_operation = 0;
+	int nand_operation = 0;
+	int nor_operation = 0;
+	int xor_operation = 0;
+	int xnor_operation = 0;
+	int i = 0;
+
+	// set array a as 4-bits
+	int a[4] = { { } };       
+	for (size_t i = 0; i < 4; ++i)
+	{
+		std::cout << "a = ";
+		std::cin >> a[i];      // store the input directly in the array
+	}
+	// set array b as 4-bits
+	int b[4] = { { } };        
+	for (size_t i = 0; i < 4; ++i)	{
+		std::cout << "b = ";            // instead of using a dummy
+		std::cin >> b[i];
+	}
+
+	// display array contents
+	//for (size_t i = 0; i < 4; ++i)
+	//{
+	//	std::cout << a[i] << ", " << b[i] << std::endl;
+	//}
+	// TESTING PURPOSES
+
+	std::cin.ignore();
+	std::string c;
+	std::cout << "\nPlease, enter your desired Logic Function [In Caps] or press Enter (2x) to leave: ";
+	std::getline(std::cin, c);
+
+	if (c == "AND") {
+		printf("\n\t|---- [ AND GATE ] -----|\n");
+		std::cout << "\n\t|" << "a" << "\t|" << "b" << "\t|" << "y" << "\t|";
+		for (i = 0; i < 4; i++) {
+
+			and_operation = a[i] & b[i];
+			std::cout << "\n\t|" << a[i] << "\t|" << b[i] << "\t|" << and_operation << "\t|";
+			printf("\t%d NAND %d = %d", a[i], b[i], and_operation);
+
+			}
+		run();
+		}
+	if (c == "OR") {
+		printf("\n\n\n\t|----- [ OR GATE ] -----|\n");
+		std::cout << "\n\t|" << "a" << "\t|" << "b" << "\t|" << "y" << "\t|";
+		for (i = 0; i < 4; i++) {
+
+			or_operation = a[i] | b[i];
+			std::cout << "\n\t|" << a[i] << "\t|" << b[i] << "\t|" << or_operation << "\t|";
+			printf("\t%d OR %d = %d", a[i], b[i], or_operation);
+		}
+		run();
+	}
+	if (c == "NOT") {
+		printf("\n\n\n\t|-[ NOT  GATE ]-|\n");
+		std::cout << "\n\t|" << "a" << "\t|" << "y" << "\t|";
+		for (i = 0; i < 4; i++) {
+
+			not_operation = ~(a[i]); // 0 becomes -1 and 1 becomes -2
+			std::cout << "\n\t|" << a[i] << "\t|" << not_operation + 2 << "\t|";
+			printf("\tNOT %d = %d", a[i], not_operation + 2);
+		}
+		printf("\n\n\t|-[ NOT  GATE ]-|\n");
+		std::cout << "\n\t|" << "b" << "\t|" << "y" << "\t|";
+		for (i = 0; i < 4; i++) {
+
+			not_operation = ~(b[i]);
+			std::cout << "\n\t|" << b[i] << "\t|" << not_operation + 2 << "\t|";
+			printf("\tNOT %d = %d", b[i], not_operation + 2);
+		}
+		run();
+	}
+	if (c == "NAND") {
+		printf("\n\n\n\t|---- [ NAND GATE ] ----|\n");
+		std::cout << "\n\t|" << "a" << "\t|" << "b" << "\t|" << "y" << "\t|";
+		for (i = 0; i < 4; i++) {
+
+			nand_operation = ~(a[i] * b[i]);
+			std::cout << "\n\t|" << a[i] << "\t|" << b[i] << "\t|" << nand_operation + 2 << "\t|";
+			printf("\t%d NAND %d = %d", a[i], b[i], nand_operation + 2);
+		}
+		run();
+	}
+	if (c == "NOR") {
+		printf("\n\n\n\t|----- [ NOR GATE ] ----|\n");
+		std::cout << "\n\t|" << "a" << "\t|" << "b" << "\t|" << "y" << "\t|";
+		for (i = 0; i < 4; i++) {
+
+			nor_operation = ~(a[i] | b[i]);
+			std::cout << "\n\t|" << a[i] << "\t|" << b[i] << "\t|" << nor_operation +2 << "\t|";
+			printf("\t%d NOR %d = %d", a[i], b[i], nor_operation + 2);
+		}
+		run();
+	}
+	else if (c == "XOR") {
+		printf("\n\n\n\t|----  [ XOR GATE ] ----|\n");
+		printf("\t|   a   |   b   |   y   |");
+		for (i = 0; i < 4; i++) {
+			xor_operation = (a[i] ^ b[i]);
+			std::cout << "\n\t|" << a[i] << "\t|" << b[i] << "\t|" << xor_operation << "\t|";
+			printf("\t%d XOR %d = %d", a[i], b[i], xor_operation);
+		}
+		run();
+	}
+	else if (c == "XNOR") {
+		printf("\n\n\n\t|---- [ XNOR GATE ] ----|\n");
+		printf("\t|   a   |   b   |   y   |");
+		for (i = 0; i < 4; i++) {
+			xnor_operation = ~(a[i] ^ b[i]);
+			std::cout << "\n\t|" << a[i] << "\t|" << b[i] << "\t|" << xnor_operation + 2 << "\t|";
+			printf("\t%d XNOR %d = %d", a[i], b[i], xnor_operation + 2);
+		}
+		run();
+	}
+	else {
+		std::cin.ignore();
+		printf("\nYour gate input is either incorrect");
+		Item1();
+	}
 }
 
 void Manager::Item3() //	1's and 2's Complement Converter
